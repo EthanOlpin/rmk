@@ -81,11 +81,11 @@ impl<const ROW: usize, const COL: usize, const ROW_OFFSET: usize, const COL_OFFS
             .expect("Failed to create split message subscriber: MaximumSubscribersReached");
 
         loop {
-            // Calculate the time until the next 3000ms sync
+            // Calculate the time until the next 100ms sync
             let elapsed = last_sync_time.elapsed().as_millis();
-            let wait_time = if elapsed >= 3000 { 1 } else { 3000 - elapsed };
+            let wait_time = if elapsed >= 100 { 1 } else { 100 - elapsed };
 
-            // Read the message from peripheral, or sync the connection state every 1000ms.
+            // Read the message from peripheral, or sync the connection state every 100ms.
             match select3(
                 self.read_event(),
                 subscriber.next_message_pure(),
